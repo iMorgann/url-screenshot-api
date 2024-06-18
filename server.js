@@ -17,7 +17,10 @@ app.get('/screenshot', async (req, res) => {
   const isMobile = /mobile/i.test(userAgent);
 
   try {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch({
+      args: ['--no-sandbox'],
+      executablePath: process.env.CHROME_BIN || null // specify path if needed
+    });
     const page = await browser.newPage();
 
     if (isMobile) {
